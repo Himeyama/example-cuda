@@ -1,8 +1,7 @@
 NVCC = /usr/local/cuda/bin/nvcc
  CXX = /usr/bin/g++
- OPT = -ccbin $(CXX) \
-	-m64 \
-	--std=c++11 \
+  CC = /usr/bin/gcc
+ OPT = -ccbin $(CC) \
 	-gencode arch=compute_52,code=sm_52 \
 	-gencode arch=compute_60,code=sm_60 \
 	-gencode arch=compute_61,code=sm_61 \
@@ -13,5 +12,5 @@ NVCC = /usr/local/cuda/bin/nvcc
 test00: test00.cu
 	$(NVCC) $(OPT) $< -o $@
 
-test01: test01.cu
-	$(NVCC) $(OPT) $< -o $@
+convolve: convolve.cu float_vector.cu
+	$(NVCC) $(OPT) $^ -o $@
